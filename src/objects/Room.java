@@ -31,6 +31,10 @@ public class Room{
         this.decoration = new ArrayList<>();
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -46,6 +50,8 @@ public class Room{
     public void addDecoration(Decoration decoration) {
         this.decoration.add(decoration);
     }
+
+
 
     @Override
     public String toString(){

@@ -36,11 +36,11 @@ public class Menu {
 
     public static Room getRoom(ArrayList<Room> rooms) throws NonExistingRoomException {
         int id = io.readInt("Type the id of the room: ");
-        try{
-            return rooms.get(id);
-        }catch (IndexOutOfBoundsException e){
+        Room r = rooms.stream().filter(x -> x.getId() == id).findFirst().orElseGet(()->null);
+        if (r == null) {
             throw new NonExistingRoomException("There isn't a room whith this id.");
         }
+        return r;
     }
 
     public static Clue getClue(HashMap<Element, Integer> inventory)
