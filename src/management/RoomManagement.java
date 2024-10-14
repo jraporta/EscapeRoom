@@ -38,7 +38,7 @@ public class RoomManagement {
 
     public static void showClueInventory(Room room) {
         try {
-            InventoryManagement.showDetailedClues(room.getInventory());
+            InventoryManagement.printDetailedClues(room.getInventory());
         } catch (EmptyInventoryException e) {
             System.out.println(e.getMessage());
         }
@@ -46,7 +46,7 @@ public class RoomManagement {
 
     public static void showDecorationInventory(Room room) {
         try {
-            InventoryManagement.showDetailedDecoration(room.getInventory());
+            InventoryManagement.printDetailedDecoration(room.getInventory());
         } catch (EmptyInventoryException e) {
             System.out.println(e.getMessage());
         }
@@ -58,7 +58,7 @@ public class RoomManagement {
 
     public static <T extends Element> void showRoomsElementList(Room room, Class<T> className)
             throws EmptyListException {
-        InventoryManagement.showSimplifiedElementList(room.getInventory(), className);
+        InventoryManagement.printSimplifiedElementList(room.getInventory(), className);
     }
 
     public static <T extends Element> void removeElement(Room room, T element, int quantity)

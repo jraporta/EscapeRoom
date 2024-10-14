@@ -8,21 +8,21 @@ import java.util.List;
 
 public class InventoryManagement {
 
-    public static void showDetailedClues(Inventory inventory) throws EmptyInventoryException {
+    public static void printDetailedClues(Inventory inventory) throws EmptyInventoryException {
         if (inventory.getClueInventory().isEmpty()){
             throw new EmptyInventoryException("There are no clues.");
         }
-        showCluesTable(inventory.getClueInventory());
+        printCluesTable(inventory.getClueInventory());
     }
 
-    public static void showDetailedDecoration(Inventory inventory) throws EmptyInventoryException {
+    public static void printDetailedDecoration(Inventory inventory) throws EmptyInventoryException {
         if (inventory.getDecorationInventory().isEmpty()){
             throw new EmptyInventoryException("There are no decoration objects.");
         }
-        showDecorationTable(inventory.getDecorationInventory());
+        printDecorationTable(inventory.getDecorationInventory());
     }
 
-    private static void showCluesTable(List<InventoryEntry<Clue>> clueInventory) {
+    private static void printCluesTable(List<InventoryEntry<Clue>> clueInventory) {
         int[] columnWidth = {5, 35, 25, 12, 10, 8, 15};
         String[] fSpecifier = {"d", "s", "s", "d", ".2f", "d", ".2f"};
         String[] headers = {"ID", "NAME", "THEME", "TIME(min)", "PRICE", "QTY", "TOTAL"};
@@ -46,7 +46,7 @@ public class InventoryManagement {
                 ));
     }
 
-    private static void showDecorationTable(List<InventoryEntry<Decoration>> decorationInventory) {
+    private static void printDecorationTable(List<InventoryEntry<Decoration>> decorationInventory) {
         int[] columnWidth = {5, 35, 25, 10, 8, 15};
         String[] fSpecifier = {"d", "s", "s", ".2f", "d", ".2f"};
         String[] headers = {"ID", "NAME", "MATERIAL", "PRICE", "QTY", "TOTAL"};
@@ -69,7 +69,7 @@ public class InventoryManagement {
         ));
     }
 
-    public static <T extends Element> void showSimplifiedElementList(Inventory invent, Class<T> className)
+    public static <T extends Element> void printSimplifiedElementList(Inventory invent, Class<T> className)
             throws EmptyListException {
         if (className == Clue.class) {
             List<InventoryEntry<Clue>> inventory = invent.getClueInventory();

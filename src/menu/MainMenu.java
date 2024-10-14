@@ -27,16 +27,16 @@ public class MainMenu {
             switch (menu()) {
                 case 0 -> exit = true;
                 case 1 -> {
-                    createNewRoom();
+                    createNewRoomDialog();
                     System.out.println("Room created!");
                 }
                 case 2 -> {
-                    createNewElement();
+                    createNewElementDialog();
                     System.out.println("Element created!");
                 }
                 case 3 -> {
                     try {
-                        assignElementToRoom(Clue.class);
+                        assignElementToRoomDialog(Clue.class);
                         System.out.println("Clues assigned to room.");
                     } catch (EmptyListException e) {
                         System.out.println(e.getMessage());
@@ -44,7 +44,7 @@ public class MainMenu {
                 }
                 case 4 -> {
                     try {
-                        assignElementToRoom(Decoration.class);
+                        assignElementToRoomDialog(Decoration.class);
                         System.out.println("Decoration assigned to room.");
                     } catch (EmptyListException e) {
                         System.out.println(e.getMessage());
@@ -52,7 +52,7 @@ public class MainMenu {
                 }
                 case 5 -> {
                     try {
-                        showInventory();
+                        printInventory();
                     } catch (EmptyListException e) {
                         System.out.println(e.getMessage());
                     }
@@ -64,7 +64,7 @@ public class MainMenu {
                         System.out.println("There are no rooms.");
                     }
                 }
-                case 7 -> showRoomDetails();
+                case 7 -> printAllRoomsDetails();
                 default -> System.out.println("Invalid Choice");
             }
         }while(!exit);
@@ -83,49 +83,49 @@ public class MainMenu {
                 "\n0. Exit\n");
     }
 
-    private void createNewRoom() {
+    private void createNewRoomDialog() {
         String name = IOHelper.readWord("Room's name: ", 30);
         System.out.println("Choose a difficulty:");
         Difficulty difficulty = readEnumChoice(Difficulty.class);
         roomManagement.addRoom(new Room(name, difficulty));
     }
 
-    private void createNewElement() {
+    private void createNewElementDialog() {
         int option;
         System.out.println("Choose an option:");
         do{
             option = IOHelper.readInt("1. Clue.\n2. Decoration element.\n");
         }while(option < 1 || option > 2);
         if (option == 1){
-            createNewClue();
+            createNewClueDialog();
         } else{
-            createNewDecoration();
+            createNewDecorationDialog();
         }
     }
 
-    private void createNewClue() {
+    private void createNewClueDialog() {
         String name = IOHelper.readWord("Clue's name: ", 30);
         double price = IOHelper.readBoundedPositiveDouble("Price: ", 1000);
         int minutes = IOHelper.readBoundedPositiveInt("Expected resolve time in minutes: ", 60);
         System.out.println("Theme: ");
         Theme theme = readEnumChoice(Theme.class);
-        catalog.add(new Clue(name, price, minutes, theme));
+        catalog.addElement(new Clue(name, price, minutes, theme));
     }
 
-    private void createNewDecoration() {
+    private void createNewDecorationDialog() {
         String name = IOHelper.readWord("Decoration's name: ", 30);
         double price = IOHelper.readBoundedPositiveDouble("Price: ", 1000);
         System.out.println("Material: ");
         Material material = readEnumChoice(Material.class);
-        catalog.add(new Decoration(name, price, material));
+        catalog.addElement(new Decoration(name, price, material));
     }
 
-    private <T extends Element> void assignElementToRoom(Class<T> className) throws EmptyListException {
+    private <T extends Element> void assignElementToRoomDialog(Class<T> className) throws EmptyListException {
         if (roomManagement.isEmpty()) throw new EmptyListException("Create a new room first.");
         if (catalog.catalogIsEmpty(className)) throw new EmptyListException("Create some elements first.");
         Room room = roomSelectDialog();
         System.out.println("Select an option:");
-        catalog.printCatalogList(className);
+        catalog.printCatalogItemsNames(className);
         T element = elementSelectDialog(className);
         int quantity = IOHelper.readBoundedPositiveInt("Quantity: ", 50);
         roomManagement.assign(room, element, quantity);
@@ -202,7 +202,7 @@ public class MainMenu {
         }
     }
 
-    private void showInventory() throws EmptyListException {
+    private void printInventory() throws EmptyListException {
         if (roomManagement.isEmpty()) throw new EmptyListException("There are no rooms.");
         Room room = roomSelectDialog();
         System.out.println("Clue inventory:");
@@ -211,7 +211,7 @@ public class MainMenu {
         RoomManagement.showDecorationInventory(room);
     }
 
-    private void showRoomDetails() {
+    private void printAllRoomsDetails() {
         try {
             roomManagement.printDetailedRoomList();
         } catch (EmptyListException e) {

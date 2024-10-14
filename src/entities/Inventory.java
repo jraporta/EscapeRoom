@@ -31,7 +31,7 @@ public class Inventory {
         }
     }
 
-    public void addClue(Clue clue, int quantity) {
+    private void addClue(Clue clue, int quantity) {
         try {
             InventoryEntry<Clue> inventoryEntry = getInventoryEntry(clue, clueInventory);
             inventoryEntry.setQuantity(inventoryEntry.getQuantity() + quantity);
@@ -41,7 +41,7 @@ public class Inventory {
         }
     }
 
-    public void addDecoration(Decoration decoration, int quantity) {
+    private void addDecoration(Decoration decoration, int quantity) {
         try {
             InventoryEntry<Decoration> inventoryEntry = getInventoryEntry(decoration, decorationInventory);
             inventoryEntry.setQuantity(inventoryEntry.getQuantity() + quantity);

@@ -15,7 +15,7 @@ public class ElementCatalogManagement {
     List<Clue> clueCatalog = new ArrayList<>();
     List<Decoration> decorationCatalog = new ArrayList<>();
 
-    public void add(Element element){
+    public void addElement(Element element){
         if(element instanceof Clue){
             clueCatalog.add((Clue) element);
         }else {
@@ -41,7 +41,7 @@ public class ElementCatalogManagement {
         }
     }
 
-    public <T extends Element> void printCatalogList(Class<T> className) throws EmptyListException {
+    public <T extends Element> void printCatalogItemsNames(Class<T> className) throws EmptyListException {
         if (className == Clue.class){
             try {
                 ListHelper.printNumeratedList(clueCatalog);
